@@ -3,6 +3,7 @@ import { useProducts } from '../hooks/useProducts';
 import { Link } from 'react-router';
 import { Heart, SlidersHorizontal, ChevronDown } from 'lucide-react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import FilterSidebar from '../components/FilterSidebar';
 import type { ProductFilters } from '../types';
 
@@ -64,17 +65,17 @@ export default function ProductListing() {
     );
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white flex flex-col">
             <Header />
 
-            <div className="max-w-[1920px] mx-auto px-8 py-6">
+            <div className="max-w-[1920px] mx-auto px-4 md:px-8 py-6 flex-1 w-full">
                 {/* Page Header */}
-                <div className="flex items-center justify-between mb-6">
-                    <h1 className="text-2xl font-medium">New ({data?.total || 0})</h1>
+                <div className="flex items-center justify-between mb-6 sticky top-0 bg-white z-10 py-2">
+                    <h1 className="text-xl md:text-2xl font-medium">New ({data?.total || 0})</h1>
                     <div className="flex items-center space-x-4">
                         <button
                             onClick={() => setShowFilters(!showFilters)}
-                            className="flex items-center space-x-2 text-sm font-medium hover:text-gray-600 transition"
+                            className="hidden md:flex items-center space-x-2 text-sm font-medium hover:text-gray-600 transition"
                         >
                             <span>{showFilters ? 'Hide' : 'Show'} Filters</span>
                             <SlidersHorizontal className="w-4 h-4" />
@@ -87,14 +88,16 @@ export default function ProductListing() {
                 </div>
 
                 <div className="flex gap-8">
-                    {/* Filters Sidebar */}
+                    {/* Filters Sidebar - Desktop Only */}
                     {showFilters && (
-                        <FilterSidebar filters={filters} onFilterChange={handleFilterChange} />
+                        <div className="hidden md:block w-64 flex-shrink-0">
+                            <FilterSidebar filters={filters} onFilterChange={handleFilterChange} />
+                        </div>
                     )}
 
                     {/* Products Grid */}
                     <div className="flex-1">
-                        <div className="grid grid-cols-3 gap-4">
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                             {data?.products.map(product => (
                                 <div key={product.id} className="group relative">
                                     <Link to={`/products/${product.id}`}>
@@ -150,6 +153,7 @@ export default function ProductListing() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

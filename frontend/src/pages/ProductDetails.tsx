@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router';
 import { useProduct, useRecommendations } from '../hooks/useProducts';
 import { ChevronLeft, ChevronRight, Star, ChevronDown, ChevronUp, Heart } from 'lucide-react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { useCart } from '../contexts/CartContext';
 
 export default function ProductDetails() {
@@ -358,7 +359,7 @@ export default function ProductDetails() {
                 {recommendations && recommendations.length > 0 && (
                     <div className="mt-16">
                         <h2 className="text-2xl font-medium mb-8">You Might Also Like</h2>
-                        <div className="grid grid-cols-3 gap-6">
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                             {recommendations.slice(0, 3).map(rec => (
                                 <Link key={rec.id} to={`/products/${rec.id}`} className="group">
                                     {/* Badge */}
@@ -395,6 +396,7 @@ export default function ProductDetails() {
                     </div>
                 )}
             </div>
+            <Footer />
         </div>
     );
 }
