@@ -111,7 +111,7 @@ export default function ProductListing() {
 
                                             {/* Badge - Top Left inside image */}
                                             {product.badge && (
-                                                <div className="absolute top-3 left-3 bg-white px-2 py-1 rounded shadow-sm">
+                                                <div className={`absolute top-3 left-3 bg-white ${product.badge.toLowerCase() === 'highly rated' ? 'px-2 py-1 rounded shadow-sm' : 'px-3 py-1 rounded-full'} `}>
                                                     <p className={`text-xs font-medium ${getBadgeClass(product.badge)}`}>
                                                         {product.badge}
                                                     </p>
@@ -124,9 +124,9 @@ export default function ProductListing() {
                                                     e.preventDefault();
                                                     // Add to favorites logic here
                                                 }}
-                                                className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:scale-110 transition-transform opacity-0 group-hover:opacity-100"
+                                                className="absolute top-3 right-3 p-1.5 md:p-2 bg-white rounded-full shadow-md hover:scale-110 transition-transform opacity-0 group-hover:opacity-100"
                                             >
-                                                <Heart className="w-5 h-5" />
+                                                <Heart className="w-4 h-4 md:w-5 md:h-5" />
                                             </button>
                                         </div>
 
