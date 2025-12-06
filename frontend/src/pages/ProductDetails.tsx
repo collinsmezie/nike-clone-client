@@ -133,6 +133,14 @@ export default function ProductDetails() {
                     {/* Center - Main Image */}
                     <div className="lg:col-span-6">
                         <div className="relative bg-gray-50 rounded-lg overflow-hidden group">
+                            {/* Highly Rated Badge Overlay */}
+                            {product.isHighlyRated && (
+                                <div className="absolute top-6 left-6 z-10 bg-white rounded-full px-4 py-2 flex items-center gap-2 shadow-sm">
+                                    <Star className="w-4 h-4 fill-black text-black" />
+                                    <span className="font-semibold text-sm">Highly Rated</span>
+                                </div>
+                            )}
+
                             <div className="aspect-square">
                                 <img
                                     src={currentImage}
@@ -177,13 +185,7 @@ export default function ProductDetails() {
 
                     {/* Right - Product Info */}
                     <div className="lg:col-span-5">
-                        {/* Highly Rated Badge */}
-                        {product.isHighlyRated && (
-                            <div className="flex items-center space-x-2 mb-4">
-                                <Star className="w-5 h-5 fill-current" />
-                                <span className="font-semibold">Highly Rated</span>
-                            </div>
-                        )}
+
 
                         {/* Product Name & Category */}
                         <h1 className="text-3xl font-medium mb-2">{product.name}</h1>

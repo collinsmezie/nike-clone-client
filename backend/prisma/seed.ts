@@ -13,6 +13,15 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
     console.log('Seeding database...');
 
+    // Clear existing data
+    console.log('Clearing existing data...');
+    await prisma.review.deleteMany({});
+    await prisma.productDetail.deleteMany({});
+    await prisma.productSize.deleteMany({});
+    await prisma.productColor.deleteMany({});
+    await prisma.productImage.deleteMany({});
+    await prisma.product.deleteMany({});
+
     // Create test user
     const hashedPassword = await bcrypt.hash('password123', 10);
     const user = await prisma.user.upsert({
@@ -85,7 +94,7 @@ async function main() {
             shoeHeight: 'Low Top',
         },
         {
-            name: "Nike Air Force 1 PLT.AF.ORM",
+            name: "Nike Air Force 1 PLT.AF.ORM LV8",
             category: "Men's Shoes",
             price: 98.30,
             image: '/products/product6.png',
