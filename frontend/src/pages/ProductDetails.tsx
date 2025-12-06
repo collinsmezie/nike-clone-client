@@ -337,7 +337,7 @@ export default function ProductDetails() {
                             {expandedSections.reviews && product.reviews && product.reviews.length > 0 && (
                                 <div className="space-y-4">
                                     {product.reviews.map(review => (
-                                        <div key={review.id} className="border-b pb-4">
+                                        <div key={review.id} className="pb-4">
                                             <div className="flex items-center space-x-2 mb-2">
                                                 <div className="flex">
                                                     {Array.from({ length: review.rating }).map((_, i) => (
