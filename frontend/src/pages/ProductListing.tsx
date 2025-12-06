@@ -109,6 +109,15 @@ export default function ProductListing() {
                                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                             />
 
+                                            {/* Badge - Top Left inside image */}
+                                            {product.badge && (
+                                                <div className="absolute top-3 left-3 bg-white px-2 py-1 rounded shadow-sm">
+                                                    <p className={`text-xs font-medium ${getBadgeClass(product.badge)}`}>
+                                                        {product.badge}
+                                                    </p>
+                                                </div>
+                                            )}
+
                                             {/* Heart Icon */}
                                             <button
                                                 onClick={(e) => {
@@ -123,28 +132,21 @@ export default function ProductListing() {
 
                                         {/* Product Info */}
                                         <div>
-                                            {/* Badge */}
-                                            {product.badge && (
-                                                <p className={`text-sm font-semibold mb-1 ${getBadgeClass(product.badge)}`}>
-                                                    {product.badge}
-                                                </p>
-                                            )}
+                                            {/* Row 1: Name and Price */}
+                                            <div className="flex justify-between items-start mb-1">
+                                                <h3 className="font-medium text-base pr-2">{product.name}</h3>
+                                                <p className="font-medium text-base">${product.price.toFixed(2)}</p>
+                                            </div>
 
-                                            {/* Product Name */}
-                                            <h3 className="font-medium text-base mb-1">{product.name}</h3>
+                                            {/* Row 2: Category */}
+                                            <p className="text-sm text-gray-500 mb-1">{product.category}</p>
 
-                                            {/* Category */}
-                                            <p className="text-sm text-gray-600 mb-1">{product.category}</p>
-
-                                            {/* Color Count */}
+                                            {/* Row 3: Color Count */}
                                             {product.colors && product.colors.length > 0 && (
-                                                <p className="text-sm text-gray-600 mb-2">
+                                                <p className="text-sm text-gray-500">
                                                     {product.colors.length} Colour{product.colors.length > 1 ? 's' : ''}
                                                 </p>
                                             )}
-
-                                            {/* Price */}
-                                            <p className="font-medium text-base">${product.price.toFixed(2)}</p>
                                         </div>
                                     </Link>
                                 </div>

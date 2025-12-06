@@ -362,33 +362,36 @@ export default function ProductDetails() {
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                             {recommendations.slice(0, 3).map(rec => (
                                 <Link key={rec.id} to={`/products/${rec.id}`} className="group">
-                                    {/* Badge */}
-                                    {rec.badge && (
-                                        <p className={`text-sm font-semibold mb-2 ${rec.badge.toLowerCase().includes('best seller') ? 'text-red-600' :
-                                            rec.badge.toLowerCase().includes('20%') ? 'text-green-600' :
-                                                rec.badge.toLowerCase().includes('10%') ? 'text-green-600' :
-                                                    'text-red-600'
-                                            }`}>
-                                            {rec.badge}
-                                        </p>
-                                    )}
-
-                                    <div className="aspect-square bg-gray-50 mb-3 rounded overflow-hidden">
+                                    <div className="aspect-square bg-gray-50 mb-3 rounded overflow-hidden relative">
                                         <img
                                             src={rec.images[0]?.url || getPlaceholderImage(rec.name, 0)}
                                             alt={rec.name}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                         />
+                                        {/* Badge */}
+                                        {rec.badge && (
+                                            <div className="absolute top-3 left-3 bg-white px-2 py-1 rounded shadow-sm">
+                                                <p className={`text-xs font-medium ${rec.badge.toLowerCase().includes('best seller') ? 'text-orange-600' :
+                                                    rec.badge.toLowerCase().includes('20%') ? 'text-green-600' :
+                                                        rec.badge.toLowerCase().includes('10%') ? 'text-green-600' :
+                                                            'text-orange-600'
+                                                    }`}>
+                                                    {rec.badge}
+                                                </p>
+                                            </div>
+                                        )}
                                     </div>
                                     <div>
-                                        <h3 className="font-medium text-base mb-1">{rec.name}</h3>
-                                        <p className="text-sm text-gray-600 mb-1">{rec.category}</p>
+                                        <div className="flex justify-between items-start mb-1">
+                                            <h3 className="font-medium text-base pr-2">{rec.name}</h3>
+                                            <p className="font-medium text-base">${rec.price.toFixed(2)}</p>
+                                        </div>
+                                        <p className="text-sm text-gray-500 mb-1">{rec.category}</p>
                                         {rec.colors && rec.colors.length > 0 && (
-                                            <p className="text-sm text-gray-600 mb-2">
+                                            <p className="text-sm text-gray-500">
                                                 {rec.colors.length} Colour{rec.colors.length > 1 ? 's' : ''}
                                             </p>
                                         )}
-                                        <p className="font-medium text-base">${rec.price.toFixed(2)}</p>
                                     </div>
                                 </Link>
                             ))}
