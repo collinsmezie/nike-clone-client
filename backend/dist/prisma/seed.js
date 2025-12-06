@@ -208,26 +208,12 @@ async function main() {
         else {
             productImages = [
                 { url: image, isPrimary: true },
-                { url: image, isPrimary: false },
-                { url: image, isPrimary: false },
-                { url: image, isPrimary: false },
             ];
-            const baseColors = [
-                { name: 'White/Black', hex: '#ffffff' },
-                { name: 'Black/White', hex: '#000000' },
-                { name: 'University Red', hex: '#DC143C' },
-                { name: 'Royal Blue', hex: '#4169E1' },
-                { name: 'Pine Green', hex: '#01796F' },
-                { name: 'Wolf Grey', hex: '#7D7F7D' }
-            ];
-            for (let i = 0; i < (colorCount || 1); i++) {
-                const baseColor = baseColors[i % baseColors.length];
-                productColors.push({
-                    name: baseColor.name,
-                    hexCode: baseColor.hex,
+            productColors = [{
+                    name: 'Standard',
+                    hexCode: '#000000',
                     imageUrl: image
-                });
-            }
+                }];
         }
         await prisma.product.create({
             data: {
