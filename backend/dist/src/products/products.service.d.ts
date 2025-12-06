@@ -5,27 +5,29 @@ export declare class ProductsService {
     constructor(prisma: PrismaService);
     findAll(filterDto: ProductFilterDto): Promise<{
         products: ({
-            images: {
-                id: string;
-                isPrimary: boolean;
-                productId: string;
-                url: string;
-            }[];
             colors: {
                 id: string;
                 name: string;
-                productId: string;
                 hexCode: string | null;
                 imageUrl: string;
+                productId: string;
+            }[];
+            images: {
+                url: string;
+                id: string;
+                isPrimary: boolean;
+                productId: string;
             }[];
             sizes: {
                 id: string;
+                size: string;
                 inStock: boolean;
                 productId: string;
-                size: string;
             }[];
         } & {
             id: string;
+            createdAt: Date;
+            updatedAt: Date;
             name: string;
             category: string;
             price: number;
@@ -38,77 +40,53 @@ export declare class ProductsService {
             sport: string | null;
             shoeHeight: string | null;
             isHighlyRated: boolean;
-            createdAt: Date;
-            updatedAt: Date;
         })[];
         total: number;
         skip: number;
         take: number;
     }>;
     findOne(id: string): Promise<({
-        images: {
-            id: string;
-            isPrimary: boolean;
-            productId: string;
-            url: string;
-        }[];
-        colors: {
-            id: string;
-            name: string;
-            productId: string;
-            hexCode: string | null;
-            imageUrl: string;
-        }[];
-        sizes: {
-            id: string;
-            inStock: boolean;
-            productId: string;
-            size: string;
-        }[];
-        details: {
-            id: string;
-            productId: string;
-            key: string;
-            value: string;
-        }[];
         reviews: ({
             user: {
                 fullName: string;
             };
         } & {
             id: string;
-            rating: number;
             createdAt: Date;
-            productId: string;
-            userId: string;
+            rating: number;
             comment: string;
+            userId: string;
+            productId: string;
         })[];
-    } & {
-        id: string;
-        name: string;
-        category: string;
-        price: number;
-        description: string;
-        rating: number;
-        reviewCount: number;
-        style: string;
-        badge: string | null;
-        gender: string | null;
-        sport: string | null;
-        shoeHeight: string | null;
-        isHighlyRated: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-    }) | null>;
-    getRecommendations(productId: string): Promise<({
+        colors: {
+            id: string;
+            name: string;
+            hexCode: string | null;
+            imageUrl: string;
+            productId: string;
+        }[];
         images: {
+            url: string;
             id: string;
             isPrimary: boolean;
             productId: string;
-            url: string;
+        }[];
+        sizes: {
+            id: string;
+            size: string;
+            inStock: boolean;
+            productId: string;
+        }[];
+        details: {
+            id: string;
+            key: string;
+            value: string;
+            productId: string;
         }[];
     } & {
         id: string;
+        createdAt: Date;
+        updatedAt: Date;
         name: string;
         category: string;
         price: number;
@@ -121,7 +99,29 @@ export declare class ProductsService {
         sport: string | null;
         shoeHeight: string | null;
         isHighlyRated: boolean;
+    }) | null>;
+    getRecommendations(productId: string): Promise<({
+        images: {
+            url: string;
+            id: string;
+            isPrimary: boolean;
+            productId: string;
+        }[];
+    } & {
+        id: string;
         createdAt: Date;
         updatedAt: Date;
+        name: string;
+        category: string;
+        price: number;
+        description: string;
+        rating: number;
+        reviewCount: number;
+        style: string;
+        badge: string | null;
+        gender: string | null;
+        sport: string | null;
+        shoeHeight: string | null;
+        isHighlyRated: boolean;
     })[]>;
 }

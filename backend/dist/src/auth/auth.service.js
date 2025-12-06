@@ -26,7 +26,7 @@ let AuthService = class AuthService {
             where: { email: registerDto.email },
         });
         if (existingUser) {
-            throw new common_1.ConflictException('Email already registered');
+            throw new common_1.ConflictException('User with this email already exists');
         }
         const hashedPassword = await bcrypt.hash(registerDto.password, 10);
         const user = await this.prisma.user.create({
@@ -54,11 +54,11 @@ let AuthService = class AuthService {
             where: { email: loginDto.email },
         });
         if (!user) {
-            throw new common_1.UnauthorizedException('Invalid credentials');
+            throw new common_1.UnauthorizedException('Invalid email or password');
         }
         const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
         if (!isPasswordValid) {
-            throw new common_1.UnauthorizedException('Invalid credentials');
+            throw new common_1.UnauthorizedException('Invalid email or password');
         }
         const token = this.jwtService.sign({
             sub: user.id,

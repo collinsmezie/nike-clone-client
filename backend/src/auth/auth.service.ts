@@ -18,7 +18,7 @@ export class AuthService {
         });
 
         if (existingUser) {
-            throw new ConflictException('Email already registered');
+            throw new ConflictException('User with this email already exists');
         }
 
         const hashedPassword = await bcrypt.hash(registerDto.password, 10);
@@ -52,13 +52,13 @@ export class AuthService {
         });
 
         if (!user) {
-            throw new UnauthorizedException('Invalid credentials');
+            throw new UnauthorizedException('Invalid email or password');
         }
 
         const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
 
         if (!isPasswordValid) {
-            throw new UnauthorizedException('Invalid credentials');
+            throw new UnauthorizedException('Invalid email or password');
         }
 
         const token = this.jwtService.sign({

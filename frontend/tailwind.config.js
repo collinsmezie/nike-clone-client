@@ -12,6 +12,9 @@ export default {
                     orange: '#FF6B00',
                 },
             },
+            fontFamily: {
+                sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+            },
         },
     },
     plugins: [],

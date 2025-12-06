@@ -29,23 +29,31 @@ export default function SignIn() {
     return (
         <div className="min-h-screen flex">
             {/* Left Side - Branding */}
-            <div className="hidden lg:flex lg:w-1/2 bg-nike-black text-white flex-col justify-between p-12">
+            <div className="hidden lg:flex lg:w-1/2 bg-black text-white flex-col justify-between p-12">
+                {/* Top: Logo */}
                 <div>
-                    <NikeLogo className="w-16 h-16 mb-8 text-current" />
-                    <h1 className="text-6xl font-bold mb-4">Just Do It</h1>
-                    <p className="text-gray-400 text-lg">
+                    <div className="bg-white p-3 rounded-xl inline-block">
+                        <NikeLogo className="w-8 h-8 text-black" />
+                    </div>
+                </div>
+
+                {/* Middle: Text */}
+                <div className="flex-1 flex flex-col justify-center">
+                    <h1 className="text-4xl font-bold mb-4">Just Do It</h1>
+                    <p className="text-white-400 text-md mb-8">
                         Join millions of athletes and fitness enthusiasts who trust Nike for their performance needs.
                     </p>
+
+                    {/* Dots indicator */}
+                    <div className="flex gap-1.5 mt-8">
+                        <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
+                        <div className="w-1.5 h-1.5 rounded-full bg-white/75"></div>
+                        <div className="w-1.5 h-1.5 rounded-full bg-white/75"></div>
+                    </div>
                 </div>
 
-                {/* Dots indicator */}
-                <div className="flex gap-2">
-                    <div className="w-2 h-2 rounded-full bg-white"></div>
-                    <div className="w-2 h-2 rounded-full bg-gray-600"></div>
-                    <div className="w-2 h-2 rounded-full bg-gray-600"></div>
-                </div>
-
-                <p className="text-sm text-gray-500">© 2024 Nike. All rights reserved.</p>
+                {/* Bottom: Copyright */}
+                <p className="text-sm text-white-500">© 2024 Nike. All rights reserved.</p>
             </div>
 
             {/* Right Side - Form */}
@@ -56,13 +64,15 @@ export default function SignIn() {
                         <NikeLogo className="w-12 h-12 text-black" />
                     </div>
 
-                    <div className="text-right mb-4">
+                    <div className="text-center mb-4">
                         <span className="text-sm text-gray-600">Already have an account? </span>
                         <Link to="/signup" className="font-semibold underline">Sign Up</Link>
                     </div>
 
-                    <h2 className="text-3xl font-bold mb-2">Join Nike Today!</h2>
-                    <p className="text-gray-600 mb-8">Create your account to start your fitness journey</p>
+                    <div className="text-center mb-8">
+                        <h2 className="text-3xl font-bold mb-2">Join Nike Today!</h2>
+                        <p className="text-gray-600">Create your account to start your fitness journey</p>
+                    </div>
 
                     {loginMutation.isError && (
                         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
@@ -74,7 +84,7 @@ export default function SignIn() {
                     <div className="space-y-3 mb-6">
                         <button
                             type="button"
-                            className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded hover:bg-gray-50 transition"
+                            className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-full hover:bg-gray-50 transition bg-white text-black"
                         >
                             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
                                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -87,7 +97,7 @@ export default function SignIn() {
 
                         <button
                             type="button"
-                            className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded hover:bg-gray-50 transition"
+                            className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-300 rounded-full hover:bg-gray-50 transition bg-white text-black"
                         >
                             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="black">
                                 <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
@@ -101,18 +111,18 @@ export default function SignIn() {
                             <div className="w-full border-t border-gray-300"></div>
                         </div>
                         <div className="relative flex justify-center text-sm">
-                            <span className="px-4 bg-white text-gray-500">Or sign up with</span>
+                            <span className="px-4 bg-white text-gray-500">Or sign in with email</span>
                         </div>
                     </div>
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium mb-2">Email</label>
+                            <label className="block text-base font-normal leading-6 mb-2 font-sans">Email</label>
                             <input
                                 {...register('email')}
                                 type="email"
                                 placeholder="johndoe@gmail.com"
-                                className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-black"
+                                className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-black bg-white text-base font-normal leading-6 font-sans tracking-normal align-middle"
                             />
                             {errors.email && (
                                 <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
@@ -120,13 +130,13 @@ export default function SignIn() {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium mb-2">Password</label>
+                            <label className="block text-base font-normal leading-6 mb-2 font-sans">Password</label>
                             <div className="relative">
                                 <input
                                     {...register('password')}
                                     type={showPassword ? 'text' : 'password'}
                                     placeholder="minimum 8 characters"
-                                    className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-black pr-12"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-black pr-12 bg-white text-base font-normal leading-6 font-sans tracking-normal align-middle"
                                 />
                                 <button
                                     type="button"
@@ -148,7 +158,7 @@ export default function SignIn() {
                         <button
                             type="submit"
                             disabled={loginMutation.isPending}
-                            className="w-full bg-black text-white py-3 rounded font-semibold hover:bg-gray-800 transition disabled:opacity-50"
+                            className="w-full bg-black text-white py-3 rounded-full font-semibold hover:bg-gray-800 transition disabled:opacity-50"
                         >
                             {loginMutation.isPending ? 'Signing In...' : 'Sign In'}
                         </button>

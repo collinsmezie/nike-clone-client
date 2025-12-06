@@ -12,7 +12,7 @@ interface FilterSidebarProps {
     onFilterChange: (key: keyof ProductFilters, value: string | number | undefined) => void;
 }
 
-export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
+export default function FilterSidebar({ filters, onFilterChange }: FilterSidebarProps) {
     const [sections, setSections] = useState<Record<string, boolean>>({
         gender: true,
         kids: true,
@@ -33,6 +33,7 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
                 {quickFilters.map(filter => (
                     <button
                         key={filter}
+                        type="button"
                         className="block w-full text-left px-0 py-1 text-sm hover:text-gray-600 transition"
                         onClick={() => {
                             if (filter === 'Low Top' || filter === 'High Top') onFilterChange('shoeHeight', filter);
@@ -48,6 +49,7 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
             {/* Gender Filter */}
             <div className="border-t pt-6 mb-6">
                 <button
+                    type="button"
                     onClick={() => toggleSection('gender')}
                     className="flex items-center justify-between w-full mb-4"
                 >
@@ -65,6 +67,7 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
                             <label key={gender} className="flex items-center space-x-2 cursor-pointer">
                                 <input
                                     type="checkbox"
+                                    checked={filters.gender === gender}
                                     className="w-4 h-4 rounded border-gray-300"
                                     onChange={(e) => {
                                         if (e.target.checked) {
@@ -84,6 +87,7 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
             {/* Kids Filter */}
             <div className="border-t pt-6 mb-6">
                 <button
+                    type="button"
                     onClick={() => toggleSection('kids')}
                     className="flex items-center justify-between w-full mb-4"
                 >
@@ -101,6 +105,7 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
                             <label key={kid} className="flex items-center space-x-2 cursor-pointer">
                                 <input
                                     type="checkbox"
+                                    checked={filters.gender === kid}
                                     className="w-4 h-4 rounded border-gray-300"
                                     onChange={(e) => {
                                         if (e.target.checked) {
@@ -123,6 +128,7 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
             {/* Shop By Price */}
             <div className="border-t pt-6 mb-6">
                 <button
+                    type="button"
                     onClick={() => toggleSection('price')}
                     className="flex items-center justify-between w-full mb-4"
                 >
@@ -145,6 +151,7 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
                             <label key={range.label} className="flex items-center space-x-2 cursor-pointer">
                                 <input
                                     type="checkbox"
+                                    checked={filters.minPrice === range.min && filters.maxPrice === range.max}
                                     className="w-4 h-4 rounded border-gray-300"
                                     onChange={(e) => {
                                         if (e.target.checked) {
@@ -166,6 +173,7 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
             {/* Shoe Height - Dropdown */}
             <div className="border-t pt-6 mb-6">
                 <button
+                    type="button"
                     onClick={() => toggleSection('height')}
                     className="flex items-center justify-between w-full mb-4"
                 >
@@ -177,6 +185,7 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
             {/* Sports Filter */}
             <div className="border-t pt-6 mb-6">
                 <button
+                    type="button"
                     onClick={() => toggleSection('sports')}
                     className="flex items-center justify-between w-full mb-4"
                 >
@@ -194,6 +203,7 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
                             <label key={sport} className="flex items-center space-x-2 cursor-pointer">
                                 <input
                                     type="checkbox"
+                                    checked={filters.sport === sport}
                                     className="w-4 h-4 rounded border-gray-300"
                                     onChange={(e) => {
                                         if (e.target.checked) {

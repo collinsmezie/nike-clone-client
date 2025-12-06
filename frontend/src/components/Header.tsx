@@ -2,9 +2,11 @@ import { Link } from 'react-router';
 import NikeLogo from './NikeLogo';
 // import { ShoppingBag } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Header() {
     const { cartCount } = useCart();
+    const { isAuthenticated, logout } = useAuth();
 
     return (
         <header className="sticky top-0 bg-white z-50">
@@ -43,6 +45,14 @@ export default function Header() {
                             {/* <ShoppingBag className="w-5 h-5" /> */}
                             <span className="hidden sm:inline">My Cart ({cartCount})</span>
                         </Link>
+                        {isAuthenticated && (
+                            <button
+                                onClick={logout}
+                                className="text-sm font-medium hover:text-gray-600 transition"
+                            >
+                                Logout
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
