@@ -54,7 +54,7 @@ export default function ProductListing() {
     const getPlaceholderImage = (productName: string, badge?: string | null) => {
         // Use different background colors based on badge type
         let bgColor = 'f5f5f5'; // light gray default
-        let textColor = '111111'; // black
+        const textColor = '111111'; // black
 
         if (badge?.toLowerCase().includes('best seller')) {
             bgColor = 'fff5f5'; // light red

@@ -40,15 +40,15 @@ export default function SignIn() {
                 {/* Middle: Text */}
                 <div className="flex-1 flex flex-col justify-center">
                     <h1 className="text-4xl font-bold mb-4">Just Do It</h1>
-                    <p className="text-white-400 text-md mb-8">
+                    <p className="text-white-400 text-md max-w-md">
                         Join millions of athletes and fitness enthusiasts who trust Nike for their performance needs.
                     </p>
 
                     {/* Dots indicator */}
                     <div className="flex gap-1.5 mt-8">
                         <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
-                        <div className="w-1.5 h-1.5 rounded-full bg-white/75"></div>
-                        <div className="w-1.5 h-1.5 rounded-full bg-white/75"></div>
+                        <div className="w-1.5 h-1.5 rounded-full bg-white/80"></div>
+                        <div className="w-1.5 h-1.5 rounded-full bg-white/80"></div>
                     </div>
                 </div>
 

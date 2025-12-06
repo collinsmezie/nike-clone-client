@@ -18,7 +18,7 @@ let ProductsService = class ProductsService {
         this.prisma = prisma;
     }
     async findAll(filterDto) {
-        const { category, size, color, minPrice, maxPrice, search, gender, sport, shoeHeight, skip = 0, take = 20 } = filterDto;
+        const { category, size, color, minPrice, maxPrice, search, gender, sport, shoeHeight, skip = 0, take = 20, } = filterDto;
         const where = {};
         if (category) {
             where.category = { contains: category };
