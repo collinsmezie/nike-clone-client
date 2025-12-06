@@ -1,4 +1,5 @@
 import { Link } from 'react-router';
+import NikeLogo from './NikeLogo';
 // import { ShoppingBag } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 
@@ -11,9 +12,7 @@ export default function Header() {
                 <div className="flex items-center justify-between">
                     {/* Logo */}
                     <Link to="/products" className="flex-shrink-0">
-                        <svg className="w-12 h-12" viewBox="0 0 24 24" fill="black">
-                            <path d="M24 7.8L6.442 15.276c-1.456.616-2.679.925-3.668.925-1.12 0-1.933-.392-2.437-1.177-.317-.504-.41-1.143-.28-1.918.13-.775.476-1.6 1.04-2.478.563-.878 1.41-1.932 2.54-3.161 1.13-1.229 2.66-2.631 4.59-4.208L24 7.8z" />
-                        </svg>
+                        <NikeLogo className="w-12 h-12 text-black" />
                     </Link>
 
                     {/* Navigation */}

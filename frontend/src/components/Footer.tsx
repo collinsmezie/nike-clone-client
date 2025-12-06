@@ -1,5 +1,6 @@
 import { MapPin } from 'lucide-react';
 import { Link } from 'react-router';
+// import NikeLogo from './NikeLogo';
 
 export default function Footer() {
     return (
@@ -7,6 +8,9 @@ export default function Footer() {
 
             {/* Bottom Bar (Responsive) */}
             <div className="container mx-auto px-4 pt-6 pb-6">
+                {/* <div className="mb-8">
+                    <NikeLogo className="w-12 h-12 text-white" />
+                </div> */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end text-xs">
                     {/* Left Side: Location & Copyright */}
                     <div className="flex flex-wrap items-center gap-4 mb-4 md:mb-0 text-[#7e7e7e]">

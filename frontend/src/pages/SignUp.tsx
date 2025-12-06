@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import NikeLogo from '../components/NikeLogo';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Link } from 'react-router';
@@ -28,9 +29,7 @@ export default function SignUp() {
             {/* Left Side - Branding */}
             <div className="hidden lg:flex lg:w-1/2 bg-nike-black text-white flex-col justify-between p-12">
                 <div>
-                    <svg className="w-16 h-16 mb-8" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M24 7.8L6.442 15.276c-1.456.616-2.679.925-3.668.925-1.12 0-1.933-.392-2.437-1.177-.317-.504-.41-1.143-.28-1.918.13-.775.476-1.6 1.04-2.478.563-.878 1.41-1.932 2.54-3.161 1.13-1.229 2.66-2.631 4.59-4.208L24 7.8z" />
-                    </svg>
+                    <NikeLogo className="w-16 h-16 mb-8 text-current" />
                     <h1 className="text-6xl font-bold mb-4">Just Do It</h1>
                     <p className="text-gray-400 text-lg">
                         Join millions of athletes and fitness enthusiasts who trust Nike for their performance needs.
