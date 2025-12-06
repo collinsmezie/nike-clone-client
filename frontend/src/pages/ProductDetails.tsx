@@ -372,8 +372,8 @@ export default function ProductDetails() {
                                         />
                                         {/* Badge */}
                                         {rec.badge && (
-                                            <div className="absolute top-3 left-3 bg-white px-2 py-1 rounded shadow-sm">
-                                                <p className={`text-xs font-medium ${rec.badge.toLowerCase().includes('best seller') ? 'text-orange-600' :
+                                            <div className={`absolute top-3 left-3 bg-white ${rec.badge.toLowerCase() === 'highly rated' ? 'px-2 py-1 rounded shadow-sm' : 'px-3 py-1 rounded-full'}`}>
+                                                <p className={`text-xs font-medium whitespace-nowrap ${rec.badge.toLowerCase().includes('best seller') ? 'text-orange-600' :
                                                     rec.badge.toLowerCase().includes('20%') ? 'text-green-600' :
                                                         rec.badge.toLowerCase().includes('10%') ? 'text-green-600' :
                                                             'text-orange-600'

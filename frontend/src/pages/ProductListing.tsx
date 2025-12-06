@@ -112,7 +112,7 @@ export default function ProductListing() {
                                             {/* Badge - Top Left inside image */}
                                             {product.badge && (
                                                 <div className={`absolute top-3 left-3 bg-white ${product.badge.toLowerCase() === 'highly rated' ? 'px-2 py-1 rounded shadow-sm' : 'px-3 py-1 rounded-full'} `}>
-                                                    <p className={`text-xs font-medium ${getBadgeClass(product.badge)}`}>
+                                                    <p className={`text-xs font-medium whitespace-nowrap ${getBadgeClass(product.badge)}`}>
                                                         {product.badge}
                                                     </p>
                                                 </div>

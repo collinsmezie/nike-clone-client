@@ -36,7 +36,7 @@ async function main() {
             price: 98.30,
             image: '/products/product1.png',
             colors: 6,
-            badge: null,
+            badge: 'Just In',
             gender: 'Men',
             sport: 'Lifestyle',
             shoeHeight: 'Mid Top',
