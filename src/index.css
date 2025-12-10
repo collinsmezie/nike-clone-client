@@ -2,9 +2,14 @@
 
 /* Global Styles */
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Apply font family to all elements */
+* {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 /* Custom Scrollbar */

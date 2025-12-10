@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import NikeLogo from './NikeLogo';
-// import { ShoppingBag } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -37,18 +37,19 @@ export default function Header() {
                     </nav>
 
                     {/* Right side - Search & Cart */}
-                    <div className="flex items-center space-x-6">
-                        <button className="text-sm font-medium hover:text-gray-600 transition hidden md:block">
-                            Search
+                    <div className="flex items-center space-x-4 md:space-x-6">
+                        {/* Mobile: Icon only, Desktop: Text only (as original) */}
+                        <button className="text-sm font-medium hover:text-gray-600 transition flex items-center space-x-1">
+                            <Search className="w-4 h-4 md:hidden" />
+                            <span className="hidden md:inline">Search</span>
                         </button>
-                        <Link to="/cart" className="flex items-center space-x-2 text-sm font-medium hover:text-gray-600 transition">
-                            {/* <ShoppingBag className="w-5 h-5" /> */}
-                            <span className="hidden sm:inline">My Cart ({cartCount})</span>
+                        <Link to="/cart" className="flex items-center space-x-1 text-sm font-medium hover:text-gray-600 transition">
+                            <span>My Cart ({cartCount})</span>
                         </Link>
                         {isAuthenticated && (
                             <button
                                 onClick={logout}
-                                className="text-sm font-medium hover:text-gray-600 transition"
+                                className="text-sm font-medium hover:text-gray-600 transition hidden md:block"
                             >
                                 Logout
                             </button>

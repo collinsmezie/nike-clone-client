@@ -91,9 +91,212 @@ export default function ProductDetails() {
             <Header />
 
             <div className="max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12 py-8">
-                <div className="flex flex-col lg:grid lg:grid-cols-12 gap-8">
-                    {/* Left - Thumbnail Gallery (Desktop) */}
-                    <div className="hidden lg:block lg:col-span-1">
+                {/* MOBILE LAYOUT - Completely separate from desktop */}
+                <div className="lg:hidden flex flex-col gap-8">
+                    {/* Product Info - Top (Mobile: First) */}
+                    <div>
+                        <h1 className="text-2xl font-medium mb-2">{product.name}</h1>
+                        <p className="text-sm text-gray-600 mb-4">{product.category}</p>
+                        <p className="text-xl font-medium mb-2">${product.price.toFixed(2)}</p>
+                        {product.badge && (
+                            <p className="text-sm text-green-600 font-semibold mb-6">{product.badge}</p>
+                        )}
+                        {product.colors && product.colors.length > 0 && (
+                            <div className="mb-6">
+                                <div className="flex gap-2 flex-wrap">
+                                    {product.colors.map((color, idx) => (
+                                        <button
+                                            key={color.id}
+                                            onClick={() => setSelectedColorIndex(idx)}
+                                            className={`w-16 h-16 border-2 rounded overflow-hidden ${selectedColorIndex === idx ? 'border-black' : 'border-gray-200'
+                                                }`}
+                                            title={color.name}
+                                        >
+                                            <img
+                                                src={color.imageUrl}
+                                                alt={color.name}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Main Image (Mobile: Second) */}
+                    <div>
+                        <div className="relative bg-gray-50 rounded-lg overflow-hidden group">
+                            {product.isHighlyRated && (
+                                <div className="absolute top-6 left-6 z-10 bg-white rounded-full px-4 py-2 flex items-center gap-2 shadow-sm">
+                                    <Star className="w-4 h-4 fill-black text-black" />
+                                    <span className="font-semibold text-sm">Highly Rated</span>
+                                </div>
+                            )}
+                            <div className="aspect-square">
+                                <img
+                                    src={currentImage}
+                                    alt={product.name}
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            <div className="flex gap-2 mt-4 overflow-x-auto pb-2">
+                                {product.images.map((img, idx) => (
+                                    <button
+                                        key={img.id}
+                                        onClick={() => setSelectedImageIndex(idx)}
+                                        className={`flex-shrink-0 w-16 h-16 border-2 rounded overflow-hidden ${selectedImageIndex === idx ? 'border-black' : 'border-gray-200'
+                                            }`}
+                                    >
+                                        <img
+                                            src={img.url || getPlaceholderImage(product.name, idx)}
+                                            alt={`${product.name} ${idx + 1}`}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Product Info - Bottom (Mobile: Third) */}
+                    <div>
+                        {/* Size Selector */}
+                        <div className="mb-6">
+                            <div className="flex justify-between items-center mb-3">
+                                <h3 className="text-sm font-medium">Select Size</h3>
+                                <button className="text-xs text-gray-600 underline">Size Guide</button>
+                            </div>
+                            <div className="grid grid-cols-4 gap-2">
+                                {product.sizes?.map(size => (
+                                    <button
+                                        key={size.id}
+                                        onClick={() => size.inStock && setSelectedSize(size.size)}
+                                        disabled={!size.inStock}
+                                        className={`py-3 border rounded text-sm font-medium ${selectedSize === size.size
+                                            ? 'border-black bg-black text-white'
+                                            : size.inStock
+                                                ? 'border-gray-300 hover:border-black'
+                                                : 'border-gray-200 text-gray-300 cursor-not-allowed'
+                                            }`}
+                                    >
+                                        {size.size}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="space-y-4 pt-6">
+                            <button
+                                onClick={handleAddToCart}
+                                className="w-full bg-black text-white py-3 rounded-full hover:bg-gray-800 transition text-sm font-medium"
+                            >
+                                Add to Bag
+                            </button>
+                            <button className="w-full bg-white text-black border border-gray-300 py-3 rounded-full hover:border-black transition text-sm font-medium flex items-center justify-center space-x-2">
+                                <Heart className="w-4 h-4" />
+                                <span>Favorite</span>
+                            </button>
+                        </div>
+
+                        {/* Product Details - Collapsible */}
+                        <div className="mt-8 pt-6">
+                            <button
+                                onClick={() => toggleSection('details')}
+                                className="flex items-center justify-between w-full mb-4"
+                            >
+                                <span className="font-medium text-base">Product Details</span>
+                                {expandedSections.details ? (
+                                    <ChevronUp className="w-5 h-5" />
+                                ) : (
+                                    <ChevronDown className="w-5 h-5" />
+                                )}
+                            </button>
+                            {expandedSections.details && (
+                                <div className="text-sm text-gray-700 space-y-3">
+                                    <p>{product.description}</p>
+                                    {product.details && product.details.length > 0 && (
+                                        <ul className="list-disc list-inside space-y-1">
+                                            {product.details.map(detail => (
+                                                <li key={detail.id}>{detail.value}</li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Shipping & Returns - Collapsible */}
+                        <div className="pt-6">
+                            <button
+                                onClick={() => toggleSection('shipping')}
+                                className="flex items-center justify-between w-full mb-4"
+                            >
+                                <span className="font-medium text-base">Shipping & Returns</span>
+                                {expandedSections.shipping ? (
+                                    <ChevronUp className="w-5 h-5" />
+                                ) : (
+                                    <ChevronDown className="w-5 h-5" />
+                                )}
+                            </button>
+                            {expandedSections.shipping && (
+                                <div className="text-sm text-gray-700 space-y-3">
+                                    <p>Free standard shipping on orders over $50.</p>
+                                    <p>Free returns within 60 days of purchase.</p>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Reviews - Collapsible */}
+                        <div className="pt-6">
+                            <button
+                                onClick={() => toggleSection('reviews')}
+                                className="flex items-center justify-between w-full mb-4"
+                            >
+                                <div className="flex items-center space-x-3">
+                                    <span className="font-medium text-base">Reviews ({product.reviewCount})</span>
+                                    <div className="flex items-center">
+                                        {Array.from({ length: 5 }).map((_, i) => (
+                                            <Star
+                                                key={i}
+                                                className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'fill-current' : ''
+                                                    }`}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+                                {expandedSections.reviews ? (
+                                    <ChevronUp className="w-5 h-5" />
+                                ) : (
+                                    <ChevronDown className="w-5 h-5" />
+                                )}
+                            </button>
+                            {expandedSections.reviews && product.reviews && product.reviews.length > 0 && (
+                                <div className="space-y-4">
+                                    {product.reviews.map(review => (
+                                        <div key={review.id} className="pb-4">
+                                            <div className="flex items-center space-x-2 mb-2">
+                                                <div className="flex">
+                                                    {Array.from({ length: review.rating }).map((_, i) => (
+                                                        <Star key={i} className="w-3 h-3 fill-current" />
+                                                    ))}
+                                                </div>
+                                                <span className="font-semibold text-xs">{review.user.fullName}</span>
+                                            </div>
+                                            <p className="text-gray-700 text-xs">{review.comment}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+
+                {/* DESKTOP LAYOUT - Completely separate from mobile */}
+                <div className="hidden lg:grid lg:grid-cols-12 gap-8">
+                    {/* Left - Thumbnail Gallery */}
+                    <div className="lg:col-span-1">
                         <div className="space-y-3">
                             {product.images.length > 0 ? (
                                 product.images.map((img, idx) => (
@@ -111,7 +314,6 @@ export default function ProductDetails() {
                                     </button>
                                 ))
                             ) : (
-                                // Generate 8 placeholder thumbnails
                                 Array.from({ length: 8 }).map((_, idx) => (
                                     <button
                                         key={idx}
@@ -133,14 +335,12 @@ export default function ProductDetails() {
                     {/* Center - Main Image */}
                     <div className="lg:col-span-6">
                         <div className="relative bg-gray-50 rounded-lg overflow-hidden group">
-                            {/* Highly Rated Badge Overlay */}
                             {product.isHighlyRated && (
                                 <div className="absolute top-6 left-6 z-10 bg-white rounded-full px-4 py-2 flex items-center gap-2 shadow-sm">
                                     <Star className="w-4 h-4 fill-black text-black" />
                                     <span className="font-semibold text-sm">Highly Rated</span>
                                 </div>
                             )}
-
                             <div className="aspect-square">
                                 <img
                                     src={currentImage}
@@ -148,26 +348,6 @@ export default function ProductDetails() {
                                     className="w-full h-full object-cover"
                                 />
                             </div>
-
-                            {/* Mobile Thumbnails (Below Main Image) */}
-                            <div className="flex lg:hidden gap-2 mt-4 overflow-x-auto pb-2">
-                                {product.images.map((img, idx) => (
-                                    <button
-                                        key={img.id}
-                                        onClick={() => setSelectedImageIndex(idx)}
-                                        className={`flex-shrink-0 w-16 h-16 border-2 rounded overflow-hidden ${selectedImageIndex === idx ? 'border-black' : 'border-gray-200'
-                                            }`}
-                                    >
-                                        <img
-                                            src={img.url || getPlaceholderImage(product.name, idx)}
-                                            alt={`${product.name} ${idx + 1}`}
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </button>
-                                ))}
-                            </div>
-
-                            {/* Navigation Arrows */}
                             <button
                                 onClick={prevImage}
                                 className="absolute left-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:scale-110"
@@ -183,23 +363,14 @@ export default function ProductDetails() {
                         </div>
                     </div>
 
-                    {/* Right - Product Info */}
+                    {/* Right - Product Info (All in one continuous column) */}
                     <div className="lg:col-span-5">
-
-
-                        {/* Product Name & Category */}
                         <h1 className="text-3xl font-medium mb-2">{product.name}</h1>
-                        <p className="text-gray-600 mb-4">{product.category}</p>
-
-                        {/* Price */}
+                        <p className="text-base text-gray-600 mb-4">{product.category}</p>
                         <p className="text-2xl font-medium mb-2">${product.price.toFixed(2)}</p>
-
-                        {/* Badge/Promotion */}
                         {product.badge && (
-                            <p className="text-green-600 font-semibold mb-6">{product.badge}</p>
+                            <p className="text-base text-green-600 font-semibold mb-6">{product.badge}</p>
                         )}
-
-                        {/* Color Selector */}
                         {product.colors && product.colors.length > 0 && (
                             <div className="mb-6">
                                 <div className="flex gap-2 flex-wrap">
@@ -225,10 +396,9 @@ export default function ProductDetails() {
                         {/* Size Selector */}
                         <div className="mb-6">
                             <div className="flex justify-between items-center mb-3">
-                                <h3 className="font-medium">Select Size</h3>
+                                <h3 className="text-base font-medium">Select Size</h3>
                                 <button className="text-sm text-gray-600 underline">Size Guide</button>
                             </div>
-
                             <div className="grid grid-cols-4 gap-2">
                                 {product.sizes?.map(size => (
                                     <button
@@ -252,15 +422,16 @@ export default function ProductDetails() {
                         <div className="space-y-4 pt-6">
                             <button
                                 onClick={handleAddToCart}
-                                className="w-full bg-black text-white py-4 rounded-full hover:bg-gray-800 transition font-medium"
+                                className="w-full bg-black text-white py-4 rounded-full hover:bg-gray-800 transition text-base font-medium"
                             >
                                 Add to Bag
                             </button>
-                            <button className="w-full bg-white text-black border border-gray-300 py-4 rounded-full hover:border-black transition font-medium flex items-center justify-center space-x-2">
+                            <button className="w-full bg-white text-black border border-gray-300 py-4 rounded-full hover:border-black transition text-base font-medium flex items-center justify-center space-x-2">
                                 <Heart className="w-5 h-5" />
                                 <span>Favorite</span>
                             </button>
                         </div>
+
                         {/* Product Details - Collapsible */}
                         <div className="mt-8 pt-6">
                             <button
@@ -274,9 +445,8 @@ export default function ProductDetails() {
                                     <ChevronDown className="w-5 h-5" />
                                 )}
                             </button>
-
                             {expandedSections.details && (
-                                <div className="text-gray-700 space-y-3">
+                                <div className="text-base text-gray-700 space-y-3">
                                     <p>{product.description}</p>
                                     {product.details && product.details.length > 0 && (
                                         <ul className="list-disc list-inside space-y-1">
@@ -302,9 +472,8 @@ export default function ProductDetails() {
                                     <ChevronDown className="w-5 h-5" />
                                 )}
                             </button>
-
                             {expandedSections.shipping && (
-                                <div className="text-gray-700 space-y-3">
+                                <div className="text-base text-gray-700 space-y-3">
                                     <p>Free standard shipping on orders over $50.</p>
                                     <p>Free returns within 60 days of purchase.</p>
                                 </div>
@@ -335,7 +504,6 @@ export default function ProductDetails() {
                                     <ChevronDown className="w-5 h-5" />
                                 )}
                             </button>
-
                             {expandedSections.reviews && product.reviews && product.reviews.length > 0 && (
                                 <div className="space-y-4">
                                     {product.reviews.map(review => (
@@ -360,7 +528,7 @@ export default function ProductDetails() {
                 {/* You Might Also Like */}
                 {recommendations && recommendations.length > 0 && (
                     <div className="mt-16">
-                        <h2 className="text-2xl font-medium mb-8">You Might Also Like</h2>
+                        <h2 className="text-xl md:text-2xl font-medium mb-8">You Might Also Like</h2>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                             {recommendations.slice(0, 3).map(rec => (
                                 <Link key={rec.id} to={`/products/${rec.id}`} className="group">
