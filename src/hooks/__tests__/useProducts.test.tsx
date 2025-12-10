@@ -13,7 +13,7 @@ vi.mock('../../lib/api', () => ({
   },
 }))
 
-const mockApi = api as { get: ReturnType<typeof vi.fn> }
+const mockApi = api as unknown as { get: ReturnType<typeof vi.fn> }
 
 const createWrapper = () => {
   const queryClient = new QueryClient({
@@ -23,9 +23,9 @@ const createWrapper = () => {
       },
     },
   })
-  return ({ children }: { children: ReactNode }) => {
-    return QueryClientProvider({ client: queryClient, children })
-  }
+  return ({ children }: { children: ReactNode }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  )
 }
 
 describe('useProducts', () => {
